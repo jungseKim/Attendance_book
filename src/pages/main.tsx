@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { addPost } from "../api";
 import FileInput from "./fileInput";
 
+export interface fileFomat {
+  file: string;
+  rows: number;
+}
+
 const Main = () => {
-  const [newFile, setNewFile] = useState<string | null>(null);
+  const [newFile, setNewFile] = useState<fileFomat | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   useEffect(() => {
     console.log(title);
@@ -13,7 +18,7 @@ const Main = () => {
     setNewFile(null);
   };
   const creatAttendance = () => {
-    if (typeof newFile !== "string") {
+    if (newFile === null) {
       return alert("file define");
     }
     if (typeof title !== "string") {

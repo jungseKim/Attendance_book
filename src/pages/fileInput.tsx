@@ -1,9 +1,10 @@
 import * as XLSX from "xlsx";
 import { addPost } from "../api";
+import { fileFomat } from "./main";
 export default function FileInput({
   setNewFile,
 }: {
-  setNewFile: React.Dispatch<React.SetStateAction<string | null>>;
+  setNewFile: React.Dispatch<React.SetStateAction<fileFomat | null>>;
 }) {
   function readExcel(e: React.ChangeEvent<HTMLInputElement>) {
     let input = e.target;
@@ -17,7 +18,8 @@ export default function FileInput({
         let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
         // console.log(JSON.stringify(rows));
         // addPost(JSON.stringify(rows));
-        setNewFile(JSON.stringify(rows));
+        console.log(rows);
+        setNewFile({ file: JSON.stringify(rows), rows: rows.length });
         // setNewFile("Dd");
       });
     };
