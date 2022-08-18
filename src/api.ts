@@ -12,7 +12,7 @@ export const getPost = async () => {
   return response;
 };
 
-export const addPost = async (file: string) => {
+export const addPost = async (title: string, file: string) => {
   console.log("서옥ㅇ");
-  await api.post("Attendance", { 섹스: file });
+  await api.post("Attendance", { title: file });
 };
