@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { addPost } from "../api";
-import FileInput from "./fileInput";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { addPost } from '../api';
+import { IfileFomat } from '../types/IfileFormat';
+import FileInput from './fileInput';
 
 export interface fileFomat {
-  file: string;
+  file: IfileFomat[];
   rows: number;
 }
 
@@ -19,10 +20,10 @@ const Main = () => {
   };
   const creatAttendance = () => {
     if (newFile === null) {
-      return alert("file define");
+      return alert('file define');
     }
-    if (typeof title !== "string") {
-      return alert("title define");
+    if (typeof title !== 'string') {
+      return alert('title define');
     }
     addPost(title, newFile);
     //여기서 바로 해당 출석부로 이동
@@ -34,12 +35,8 @@ const Main = () => {
   return (
     <div className=" m-auto">
       <div className=" flex flex-col w-full ">
-        <h1 className="font-bold text-5xl lg:text-7xl font-mono">
-          Attendance book
-        </h1>
-        <p className="text-end font-semibold mb-10">
-          Youngjin University Beacon
-        </p>
+        <h1 className="font-bold text-5xl lg:text-7xl font-mono">Attendance book</h1>
+        <p className="text-end font-semibold mb-10">Youngjin University Beacon</p>
 
         {newFile !== null ? (
           <div className="flex items center gap-2">
@@ -72,7 +69,7 @@ const Main = () => {
             <FileInput setNewFile={setNewFile} />
             <Link
               to="/Attendances"
-              style={{ backgroundColor: "#FEE2CB" }}
+              style={{ backgroundColor: '#FEE2CB' }}
               className="w-full sm:w-auto px-9 py-4 mb-4 
             text-center
             text-base lg:text-2xl font-semibold rounded-xl border-pink-200 focus:ring-gray-900 text-purple-700"
