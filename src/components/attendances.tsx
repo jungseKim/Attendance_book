@@ -16,7 +16,8 @@ const Atttendance = ({
 }) => {
   const created_at_format = useMemo(() => {
     const time = new Date(attendace.created_at);
-    return `${time.getFullYear()}.${time.getMonth()}.${time.getDay()}`;
+    console.log(time);
+    return `${time.getFullYear()}.${time.getMonth() + 1}.${time.getDate()}`;
   }, [attendace]);
 
   return (

@@ -11,6 +11,7 @@ export interface IfileFomat {
   진행상태: string;
   취업국가: string;
   퇴실: string;
+  id: number | undefined;
 }
 export interface ItableArray {
   결과: string;
@@ -19,6 +20,6 @@ export interface ItableArray {
 
 //여기서 time format 해주기
 export interface Ifileshowformat {
-  IfileFomat: IfileFomat[];
+  file: IfileFomat[];
   id: number;
 }

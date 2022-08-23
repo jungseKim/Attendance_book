@@ -1,32 +1,33 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { addPost } from '../api';
-import { IfileFomat } from '../types/IfileFormat';
-import FileInput from './fileInput';
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { addPost } from "../api";
+import { IfileFomat } from "../types/IfileFormat";
+import FileInput from "./fileInput";
+import { useRoutes } from "react-router-dom";
 export interface fileFomat {
   file: IfileFomat[];
   rows: number;
 }
 
-const Main = () => {
+const Main = (props: any) => {
   const [newFile, setNewFile] = useState<fileFomat | null>(null);
   const [title, setTitle] = useState<string | null>(null);
-  useEffect(() => {
-    console.log(title);
-  }, [title]);
+
   const clearFile = () => {
     setNewFile(null);
   };
-  const creatAttendance = () => {
+  const creatAttendance = async () => {
     if (newFile === null) {
-      return alert('file define');
+      return alert("file define");
     }
-    if (typeof title !== 'string') {
-      return alert('title define');
+    if (typeof title !== "string") {
+      return alert("title define");
     }
-    addPost(title, newFile);
-    //여기서 바로 해당 출석부로 이동
+    const rsp = await addPost(title, newFile);
+    if (rsp) {
+      return (window.location.href = "/Attendances");
+    }
+    alert("파일 양식이 다릅니다.");
   };
   const inputOftitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -35,8 +36,12 @@ const Main = () => {
   return (
     <div className=" m-auto">
       <div className=" flex flex-col w-full ">
-        <h1 className="font-bold text-5xl lg:text-7xl font-mono">Attendance book</h1>
-        <p className="text-end font-semibold mb-10">Youngjin University Beacon</p>
+        <h1 className="font-bold text-5xl lg:text-7xl font-mono">
+          Attendance book
+        </h1>
+        <p className="text-end font-semibold mb-10">
+          Youngjin University Beacon
+        </p>
 
         {newFile !== null ? (
           <div className="flex items center gap-2">
@@ -69,7 +74,7 @@ const Main = () => {
             <FileInput setNewFile={setNewFile} />
             <Link
               to="/Attendances"
-              style={{ backgroundColor: '#FEE2CB' }}
+              style={{ backgroundColor: "#FEE2CB" }}
               className="w-full sm:w-auto px-9 py-4 mb-4 
             text-center
             text-base lg:text-2xl font-semibold rounded-xl border-pink-200 focus:ring-gray-900 text-purple-700"
